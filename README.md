@@ -31,3 +31,9 @@ Add this plugin to your ESLint configuration and extend your desired configurati
 | [lightning/no-aura-localization-service](./docs/rules/no-aura-localization-service.md) | prevent usage of `$A.localizationService`                               |         |
 | [lightning/no-moment](./docs/rules/no-moment.md)                                       | prevent usage of `moment` library                                       |         |
 | [lightning/prefer-i18n-service](./docs/rules/prefer-i18n-service.md)                   | suggest usage of `@salesforce/i18n-service` over direct calls to `Intl` |         |
+
+### Apex rules
+
+| Rule ID                                                                                | Description                                              | Fixable |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------- | ------- |
+| [lightning/valid-apex-method-invocation](./docs/rules/valid-apex-method-invocation.md) | enforce invoking Apex methods with an object as argument |         |
