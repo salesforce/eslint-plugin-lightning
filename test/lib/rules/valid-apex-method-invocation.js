@@ -15,89 +15,155 @@ const ruleTester = new RuleTester(ESLINT_TEST_CONFIG);
 
 ruleTester.run('valid-apex-method-invocation', rule, {
   valid: [
-    // {
-    //   code: `
-    //     import findContacts from '@salesforce/apex/ContactController.findContacts';
-    //     findContacts();
-    //   `,
-    // },
-    // {
-    //   code: `
-    //     import findContacts from '@salesforce/apex/ContactController.findContacts';
-    //     findContacts({});
-    //   `,
-    // },
-    // {
-    //   code: `
-    //     import findContacts from '@salesforce/apex/ContactController.findContacts';
-    //     findContacts({ searchKey: 'Ted' });
-    //   `,
-    // },
-    // {
-    //   code: `
-    //     import findContacts from '@salesforce/apex/ContactController.findContacts';
-    //     const args = { searchKey: 'Ted' };
-    //     findContacts(args);
-    //   `,
-    // },
-    // {
-    //   code: `
-    //     import findContacts from '@salesforce/apex/ContactController.findContacts';
-
-    //     function callApex(args) {
-    //       findContacts(args);
-    //     }
-    //   `,
-    // },
-    // {
-    //   //
-    //   code: `
-    //     import { namedApexImport } from '@salesforce/apex/ContactController.findContacts';
-    //     namedApexImport('Ted');
-    //   `,
-    // },
     {
+      // Invocation without arguments.
       code: `
-        import salesforceImport from '@salesforce/something';
-        salesforceImport('Ted')
+        import findContacts from '@salesforce/apex/ContactController.findContacts';
+        findContacts();
+      `,
+    },
+    {
+      // Invocation without arguments (empty object).
+      code: `
+        import findContacts from '@salesforce/apex/ContactController.findContacts';
+        findContacts({});
+      `,
+    },
+    {
+      // Invocation with arguments passed as a literal.
+      code: `
+        import findContacts from '@salesforce/apex/ContactController.findContacts';
+        findContacts({ searchKey: 'Ted' });
+      `,
+    },
+    {
+      // Invocation with an constant identifier referencing an object.
+      code: `
+        import findContacts from '@salesforce/apex/ContactController.findContacts';
+        const args = { searchKey: 'Ted' };
+        findContacts(args);
+      `,
+    },
+    {
+      // Invocation with an argument retrieved from an expression.
+      code: `
+        import findContacts from '@salesforce/apex/ContactController.findContacts';
+        findContacts(getArgs());
+      `,
+    },
+    {
+      // Invocation with an unresolved identifier.
+      code: `
+        import findContacts from '@salesforce/apex/ContactController.findContacts';
+        findContacts(arg);
+      `,
+    },
+    {
+      // Invocation using a spread operator.
+      code: `
+        import findContacts from '@salesforce/apex/ContactController.findContacts';
+        findContacts(...args);
+      `,
+    },
+    {
+      // Invocation with an let identifier reference. Even if the initial value is a literal, it
+      // is impossible to assume the referenced value remains unchanged before invoking the
+      // Apex method.
+      code: `
+        import findContacts from '@salesforce/apex/ContactController.findContacts';
+        let arg = 'Ted';
+        findContacts(arg);
+      `,
+    },
+    {
+      // Invocation with an identifier referencing an argument.
+      code: `
+        import findContacts from '@salesforce/apex/ContactController.findContacts';
+
+        function callApex(args) {
+          findContacts(args);
+        }
+      `,
+    },
+    {
+      // Invocation of an Apex method imported via the default named import.
+      code: `
+        import { default as findContacts } from '@salesforce/apex/ContactController.findContacts';
+        findContacts({ searchKey: 'Ted' });
+      `,
+    },
+    {
+      // Invocation of a named import from an Apex module import. Apex modules only support default
+      // import today. Invalid imports are ignored by this rule.
+      code: `
+        import { findContacts } from '@salesforce/apex/ContactController.findContacts';
+        findContacts('Ted');
+      `,
+    },
+    {
+      // Invocation of a method coming from a non Apex module.
+      code: `
+        import findContacts from '@salesforce/something';
+        findContacts('Ted');
       `,
     },
   ],
   invalid: [
-    // {
-    //   code: `
-    //     import findContacts from '@salesforce/apex/ContactController.findContacts';
-    //     findContacts('Ted');
-    //   `,
-    //   errors: [
-    //     {
-    //       message: 'Invalid apex method invocation. Apex methods expect an object as argument.',
-    //     },
-    //   ],
-    // },
-    // {
-    //   code: `
-    //     import findContacts from '@salesforce/apex/ContactController.findContacts';
-    //     findContacts(true);
-    //   `,
-    //   errors: [
-    //     {
-    //       message: 'Invalid apex method invocation. Apex methods expect an object as argument.',
-    //     },
-    //   ],
-    // },
-    // {
-    //   code: `
-    //     import findContacts from '@salesforce/apex/ContactController.findContacts';
-    //     findContacts(42);
-    //   `,
-    //   errors: [
-    //     {
-    //       message: 'Invalid apex method invocation. Apex methods expect an object as argument.',
-    //     },
-    //   ],
-    // },
     {
+      // Invocation with string literal.
+      code: `
+        import findContacts from '@salesforce/apex/ContactController.findContacts';
+        findContacts('Ted');
+      `,
+      errors: [
+        {
+          message:
+            'Invalid apex method invocation. Apex methods expect an object as argument.',
+        },
+      ],
+    },
+    {
+      // Invocation with boolean literal.
+      code: `
+        import findContacts from '@salesforce/apex/ContactController.findContacts';
+        findContacts(true);
+      `,
+      errors: [
+        {
+          message:
+            'Invalid apex method invocation. Apex methods expect an object as argument.',
+        },
+      ],
+    },
+    {
+      // Invocation with number literal.
+      code: `
+        import findContacts from '@salesforce/apex/ContactController.findContacts';
+        findContacts(42);
+      `,
+      errors: [
+        {
+          message:
+            'Invalid apex method invocation. Apex methods expect an object as argument.',
+        },
+      ],
+    },
+    {
+      // Invocation with string literal when import the method using the default named import.
+      code: `
+        import { default as findContacts } from '@salesforce/apex/ContactController.findContacts';
+        findContacts('Ted');
+      `,
+      errors: [
+        {
+          message:
+            'Invalid apex method invocation. Apex methods expect an object as argument.',
+        },
+      ],
+    },
+    {
+      // Invocation with string literal using an identifier resolving to a const variable
+      // initialized to string literal.
       code: `
         import findContacts from '@salesforce/apex/ContactController.findContacts';
         const args = 'Ted';
@@ -105,34 +171,39 @@ ruleTester.run('valid-apex-method-invocation', rule, {
       `,
       errors: [
         {
-          message: 'TODO',
+          message:
+            'Invalid apex method invocation. Apex methods expect an object as argument.',
         },
       ],
     },
-    // {
-    //   code: `
-    //     import findContacts from '@salesforce/apex/ContactController.findContacts';
-    //     findContacts('Ted', 'Salesforce');
-    //   `,
-    //   errors: [
-    //     {
-    //       message: 'Invalid apex method invocation. Apex methods only accept a single argument.',
-    //     },
-    //   ],
-    // },
-    // {
-    //   code: `
-    //     import findContacts from '@salesforce/apex/ContactController.findContacts';
+    {
+      // Invocation with 2 arguments.
+      code: `
+        import findContacts from '@salesforce/apex/ContactController.findContacts';
+        findContacts(arg1, arg2);
+      `,
+      errors: [
+        {
+          message:
+            'Invalid apex method invocation. Apex methods only accept a single argument.',
+        },
+      ],
+    },
+    {
+      // Invocation with 2 arguments.
+      code: `
+        import findContacts from '@salesforce/apex/ContactController.findContacts';
 
-    //     function callApex(arg1, arg2) {
-    //       findContacts(arg1, arg2);
-    //     }
-    //   `,
-    //   errors: [
-    //     {
-    //       message: 'Invalid apex method invocation. Apex methods only accept a single argument.',
-    //     },
-    //   ],
-    // },
+        function callApex(arg1, arg2) {
+          findContacts(arg1, arg2);
+        }
+      `,
+      errors: [
+        {
+          message:
+            'Invalid apex method invocation. Apex methods only accept a single argument.',
+        },
+      ],
+    },
   ],
 });

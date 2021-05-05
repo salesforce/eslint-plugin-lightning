@@ -34,6 +34,6 @@ Add this plugin to your ESLint configuration and extend your desired configurati
 
 ### Apex rules
 
-| Rule ID                                                                                | Description                                              | Fixable |
-| -------------------------------------------------------------------------------------- | -------------------------------------------------------- | ------- |
-| [lightning/valid-apex-method-invocation](./docs/rules/valid-apex-method-invocation.md) | enforce invoking Apex methods with an object as argument |         |
+| Rule ID                                                                                | Description                                            | Fixable |
+| -------------------------------------------------------------------------------------- | ------------------------------------------------------ | ------- |
+| [lightning/valid-apex-method-invocation](./docs/rules/valid-apex-method-invocation.md) | enforce invoking Apex methods with the right arguments |         |
