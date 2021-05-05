@@ -117,8 +117,7 @@ ruleTester.run('valid-apex-method-invocation', rule, {
       `,
       errors: [
         {
-          message:
-            'Invalid apex method invocation. Apex methods expect an object as argument.',
+          messageId: 'invalidArgumentType',
         },
       ],
     },
@@ -130,8 +129,7 @@ ruleTester.run('valid-apex-method-invocation', rule, {
       `,
       errors: [
         {
-          message:
-            'Invalid apex method invocation. Apex methods expect an object as argument.',
+          messageId: 'invalidArgumentType',
         },
       ],
     },
@@ -143,8 +141,19 @@ ruleTester.run('valid-apex-method-invocation', rule, {
       `,
       errors: [
         {
-          message:
-            'Invalid apex method invocation. Apex methods expect an object as argument.',
+          messageId: 'invalidArgumentType',
+        },
+      ],
+    },
+    {
+      // Invocation with array expression.
+      code: `
+        import findContacts from '@salesforce/apex/ContactController.findContacts';
+        findContacts([42]);
+      `,
+      errors: [
+        {
+          messageId: 'invalidArgumentType',
         },
       ],
     },
@@ -156,8 +165,7 @@ ruleTester.run('valid-apex-method-invocation', rule, {
       `,
       errors: [
         {
-          message:
-            'Invalid apex method invocation. Apex methods expect an object as argument.',
+          messageId: 'invalidArgumentType',
         },
       ],
     },
@@ -171,8 +179,7 @@ ruleTester.run('valid-apex-method-invocation', rule, {
       `,
       errors: [
         {
-          message:
-            'Invalid apex method invocation. Apex methods expect an object as argument.',
+          messageId: 'invalidArgumentType',
         },
       ],
     },
@@ -184,8 +191,7 @@ ruleTester.run('valid-apex-method-invocation', rule, {
       `,
       errors: [
         {
-          message:
-            'Invalid apex method invocation. Apex methods only accept a single argument.',
+          messageId: 'invalidNumberOfArguments',
         },
       ],
     },
@@ -200,8 +206,7 @@ ruleTester.run('valid-apex-method-invocation', rule, {
       `,
       errors: [
         {
-          message:
-            'Invalid apex method invocation. Apex methods only accept a single argument.',
+          messageId: 'invalidNumberOfArguments',
         },
       ],
     },
