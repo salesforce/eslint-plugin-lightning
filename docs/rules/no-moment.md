@@ -6,8 +6,8 @@ You should be using the `@salesforce/i18n-service` methods instead.
 
 Usage of following `moment` imports are detected:
 
-- `require('moment');`
-- `import moment from 'moment';`
+-   `require('moment');`
+-   `import moment from 'moment';`
 
 ## Rule details
 

@@ -14,63 +14,63 @@ const rule = require('../../../lib/rules/no-aura-localization-service');
 const ruleTester = new RuleTester(ESLINT_TEST_CONFIG);
 
 ruleTester.run('no-aura-localization-service', rule, {
-  valid: [
-    {
-      code: `getNumberFormat('de-DE', { style: 'currency', currency: 'EUR' });`,
-    },
-    {
-      code: `getDateTimeFormat('fi', {year: 'numeric', month: 'long', day: 'numeric'});`,
-    },
-    {
-      code: `getIntlOptionsFromCLDR("en-US", "shortDateFormat");`,
-    },
-    {
-      code: `const dateFormatter = getDateTimeFormat("en-US", intlOptions);`,
-    },
-    {
-      code: `const numberFormatInstance = new LocalizerImpl.NumberFormat(locale, options);`,
-    },
-  ],
-  invalid: [
-    {
-      code: `$A.localizationService.formatDateTimeUTC()`,
-      errors: [
+    valid: [
         {
-          message: 'Disallow usage of "$A.localizationService".',
+            code: `getNumberFormat('de-DE', { style: 'currency', currency: 'EUR' });`,
         },
-      ],
-    },
-    {
-      code: `$A.localizationService.parseDateTime()`,
-      errors: [
         {
-          message: 'Disallow usage of "$A.localizationService".',
+            code: `getDateTimeFormat('fi', {year: 'numeric', month: 'long', day: 'numeric'});`,
         },
-      ],
-    },
-    {
-      code: `$A.localizationService.parseBigDecimal()`,
-      errors: [
         {
-          message: 'Disallow usage of "$A.localizationService".',
+            code: `getIntlOptionsFromCLDR("en-US", "shortDateFormat");`,
         },
-      ],
-    },
-    {
-      code: `$A.localizationService;`,
-      errors: [
         {
-          message: 'Disallow usage of "$A.localizationService".',
+            code: `const dateFormatter = getDateTimeFormat("en-US", intlOptions);`,
         },
-      ],
-    },
-    {
-      code: `window.$A !== undefined && window.$A.localizationService;`,
-      errors: [
         {
-          message: 'Disallow usage of "$A.localizationService".',
+            code: `const numberFormatInstance = new LocalizerImpl.NumberFormat(locale, options);`,
         },
-      ],
-    },
-  ],
+    ],
+    invalid: [
+        {
+            code: `$A.localizationService.formatDateTimeUTC()`,
+            errors: [
+                {
+                    message: 'Disallow usage of "$A.localizationService".',
+                },
+            ],
+        },
+        {
+            code: `$A.localizationService.parseDateTime()`,
+            errors: [
+                {
+                    message: 'Disallow usage of "$A.localizationService".',
+                },
+            ],
+        },
+        {
+            code: `$A.localizationService.parseBigDecimal()`,
+            errors: [
+                {
+                    message: 'Disallow usage of "$A.localizationService".',
+                },
+            ],
+        },
+        {
+            code: `$A.localizationService;`,
+            errors: [
+                {
+                    message: 'Disallow usage of "$A.localizationService".',
+                },
+            ],
+        },
+        {
+            code: `window.$A !== undefined && window.$A.localizationService;`,
+            errors: [
+                {
+                    message: 'Disallow usage of "$A.localizationService".',
+                },
+            ],
+        },
+    ],
 });

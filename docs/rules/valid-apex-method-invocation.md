@@ -22,7 +22,7 @@ import { findContacts } from '@salesforce/apex/ContactController.findContacts';
 
 findContacts({ searchKey: 'Ted' });
 findContacts({
-  searchKey: 'Ted',
-  company: 'Salesforce',
+    searchKey: 'Ted',
+    company: 'Salesforce',
 });
 ```

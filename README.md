@@ -14,11 +14,11 @@ Add this plugin to your ESLint configuration and extend your desired configurati
 
 ```json
 {
-  "plugin": ["@salesforce/eslint-plugin-lightning"],
-  "rules": {
-    "@salesforce/lightning/no-moment": "error",
-    "@salesforce/lightning/prefer-i18n-service": "error"
-  }
+    "plugin": ["@salesforce/eslint-plugin-lightning"],
+    "rules": {
+        "@salesforce/lightning/no-moment": "error",
+        "@salesforce/lightning/prefer-i18n-service": "error"
+    }
 }
 ```
 
