@@ -37,6 +37,13 @@ ruleTester.run('valid-apex-method-invocation', rule, {
       `,
     },
     {
+      // Invocation on a continuation method with arguments passed as a literal.
+      code: `
+        import findContacts from '@salesforce/apexContinuation/ContactController.findContacts';
+        findContacts({ searchKey: 'Ted' });
+      `,
+    },
+    {
       // Invocation with an constant identifier referencing an object.
       code: `
         import findContacts from '@salesforce/apex/ContactController.findContacts';
@@ -83,13 +90,6 @@ ruleTester.run('valid-apex-method-invocation', rule, {
         function callApex(args) {
           findContacts(args);
         }
-      `,
-    },
-    {
-      // Invocation of an Apex method imported via the default named import.
-      code: `
-        import { default as findContacts } from '@salesforce/apex/ContactController.findContacts';
-        findContacts({ searchKey: 'Ted' });
       `,
     },
     {
@@ -158,9 +158,9 @@ ruleTester.run('valid-apex-method-invocation', rule, {
       ],
     },
     {
-      // Invocation with string literal when import the method using the default named import.
+      // Invocation on a continuation method with arguments passed as a literal.
       code: `
-        import { default as findContacts } from '@salesforce/apex/ContactController.findContacts';
+        import findContacts from '@salesforce/apexContinuation/ContactController.findContacts';
         findContacts('Ted');
       `,
       errors: [
