@@ -18,103 +18,103 @@ ruleTester.run('valid-apex-method-invocation', rule, {
         {
             // Invocation without arguments.
             code: `
-        import findContacts from '@salesforce/apex/ContactController.findContacts';
-        findContacts();
-      `,
+                import findContacts from '@salesforce/apex/ContactController.findContacts';
+                findContacts();
+            `,
         },
         {
             // Invocation without arguments (empty object).
             code: `
-        import findContacts from '@salesforce/apex/ContactController.findContacts';
-        findContacts({});
-      `,
+                import findContacts from '@salesforce/apex/ContactController.findContacts';
+                findContacts({});
+            `,
         },
         {
             // Invocation with arguments passed as a literal.
             code: `
-        import findContacts from '@salesforce/apex/ContactController.findContacts';
-        findContacts({ searchKey: 'Ted' });
-      `,
+                import findContacts from '@salesforce/apex/ContactController.findContacts';
+                findContacts({ searchKey: 'Ted' });
+            `,
         },
         {
             // Invocation on a continuation method with arguments passed as a literal.
             code: `
-        import findContacts from '@salesforce/apexContinuation/ContactController.findContacts';
-        findContacts({ searchKey: 'Ted' });
-      `,
+                import findContacts from '@salesforce/apexContinuation/ContactController.findContacts';
+                findContacts({ searchKey: 'Ted' });
+            `,
         },
         {
             // Invocation with an constant identifier referencing an object.
             code: `
-        import findContacts from '@salesforce/apex/ContactController.findContacts';
-        const args = { searchKey: 'Ted' };
-        findContacts(args);
-      `,
+                import findContacts from '@salesforce/apex/ContactController.findContacts';
+                const args = { searchKey: 'Ted' };
+                findContacts(args);
+            `,
         },
         {
             // Invocation with an argument retrieved from an expression.
             code: `
-        import findContacts from '@salesforce/apex/ContactController.findContacts';
-        findContacts(getArgs());
-      `,
+                import findContacts from '@salesforce/apex/ContactController.findContacts';
+                findContacts(getArgs());
+            `,
         },
         {
             // Invocation with an unresolved identifier.
             code: `
-        import findContacts from '@salesforce/apex/ContactController.findContacts';
-        findContacts(arg);
-      `,
+                import findContacts from '@salesforce/apex/ContactController.findContacts';
+                findContacts(arg);
+            `,
         },
         {
             // Invocation using a spread operator.
             code: `
-        import findContacts from '@salesforce/apex/ContactController.findContacts';
-        findContacts(...args);
-      `,
+                import findContacts from '@salesforce/apex/ContactController.findContacts';
+                findContacts(...args);
+            `,
         },
         {
             // Invocation with an let identifier reference. Even if the initial value is a literal, it
             // is impossible to assume the referenced value remains unchanged before invoking the
             // Apex method.
             code: `
-        import findContacts from '@salesforce/apex/ContactController.findContacts';
-        let arg = 'Ted';
-        findContacts(arg);
-      `,
+                import findContacts from '@salesforce/apex/ContactController.findContacts';
+                let arg = 'Ted';
+                findContacts(arg);
+            `,
         },
         {
             // Invocation with an identifier referencing an argument.
             code: `
-        import findContacts from '@salesforce/apex/ContactController.findContacts';
+                import findContacts from '@salesforce/apex/ContactController.findContacts';
 
-        function callApex(args) {
-          findContacts(args);
-        }
-      `,
+                function callApex(args) {
+                findContacts(args);
+                }
+            `,
         },
         {
             // Invocation of a named import from an Apex module import. Apex modules only support default
             // import today. Invalid imports are ignored by this rule.
             code: `
-        import { findContacts } from '@salesforce/apex/ContactController.findContacts';
-        findContacts('Ted');
-      `,
+                import { findContacts } from '@salesforce/apex/ContactController.findContacts';
+                findContacts('Ted');
+            `,
         },
         {
             // Invocation of a method coming from a non Apex module.
             code: `
-        import findContacts from '@salesforce/something';
-        findContacts('Ted');
-      `,
+                import findContacts from '@salesforce/something';
+                findContacts('Ted');
+            `,
         },
     ],
     invalid: [
         {
             // Invocation with string literal.
             code: `
-        import findContacts from '@salesforce/apex/ContactController.findContacts';
-        findContacts('Ted');
-      `,
+                import findContacts from '@salesforce/apex/ContactController.findContacts';
+                findContacts('Ted');
+            `,
             errors: [
                 {
                     messageId: 'invalidArgumentType',
@@ -124,9 +124,9 @@ ruleTester.run('valid-apex-method-invocation', rule, {
         {
             // Invocation with boolean literal.
             code: `
-        import findContacts from '@salesforce/apex/ContactController.findContacts';
-        findContacts(true);
-      `,
+                import findContacts from '@salesforce/apex/ContactController.findContacts';
+                findContacts(true);
+            `,
             errors: [
                 {
                     messageId: 'invalidArgumentType',
@@ -136,9 +136,9 @@ ruleTester.run('valid-apex-method-invocation', rule, {
         {
             // Invocation with number literal.
             code: `
-        import findContacts from '@salesforce/apex/ContactController.findContacts';
-        findContacts(42);
-      `,
+                import findContacts from '@salesforce/apex/ContactController.findContacts';
+                findContacts(42);
+            `,
             errors: [
                 {
                     messageId: 'invalidArgumentType',
@@ -148,9 +148,9 @@ ruleTester.run('valid-apex-method-invocation', rule, {
         {
             // Invocation with array expression.
             code: `
-        import findContacts from '@salesforce/apex/ContactController.findContacts';
-        findContacts([42]);
-      `,
+                import findContacts from '@salesforce/apex/ContactController.findContacts';
+                findContacts([42]);
+            `,
             errors: [
                 {
                     messageId: 'invalidArgumentType',
@@ -160,9 +160,9 @@ ruleTester.run('valid-apex-method-invocation', rule, {
         {
             // Invocation on a continuation method with arguments passed as a literal.
             code: `
-        import findContacts from '@salesforce/apexContinuation/ContactController.findContacts';
-        findContacts('Ted');
-      `,
+                import findContacts from '@salesforce/apexContinuation/ContactController.findContacts';
+                findContacts('Ted');
+            `,
             errors: [
                 {
                     messageId: 'invalidArgumentType',
@@ -173,10 +173,10 @@ ruleTester.run('valid-apex-method-invocation', rule, {
             // Invocation with string literal using an identifier resolving to a const variable
             // initialized to string literal.
             code: `
-        import findContacts from '@salesforce/apex/ContactController.findContacts';
-        const args = 'Ted';
-        findContacts(args);
-      `,
+                import findContacts from '@salesforce/apex/ContactController.findContacts';
+                const args = 'Ted';
+                findContacts(args);
+            `,
             errors: [
                 {
                     messageId: 'invalidArgumentType',
@@ -186,9 +186,9 @@ ruleTester.run('valid-apex-method-invocation', rule, {
         {
             // Invocation with 2 arguments.
             code: `
-        import findContacts from '@salesforce/apex/ContactController.findContacts';
-        findContacts(arg1, arg2);
-      `,
+                import findContacts from '@salesforce/apex/ContactController.findContacts';
+                findContacts(arg1, arg2);
+            `,
             errors: [
                 {
                     messageId: 'invalidNumberOfArguments',
@@ -198,12 +198,12 @@ ruleTester.run('valid-apex-method-invocation', rule, {
         {
             // Invocation with 2 arguments.
             code: `
-        import findContacts from '@salesforce/apex/ContactController.findContacts';
+                import findContacts from '@salesforce/apex/ContactController.findContacts';
 
-        function callApex(arg1, arg2) {
-          findContacts(arg1, arg2);
-        }
-      `,
+                function callApex(arg1, arg2) {
+                findContacts(arg1, arg2);
+                }
+            `,
             errors: [
                 {
                     messageId: 'invalidNumberOfArguments',
