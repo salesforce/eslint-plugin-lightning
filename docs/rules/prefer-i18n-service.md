@@ -6,9 +6,9 @@ You should be using the `@salesforce/i18n-service` methods instead.
 
 Usage of following `Intl` constructor properties is discouraged:
 
-- `Intl.DateTimeFormat()`
-- `Intl.NumberFormat()`
-- `Intl.RelativeTimeFormat()`
+-   `Intl.DateTimeFormat()`
+-   `Intl.NumberFormat()`
+-   `Intl.RelativeTimeFormat()`
 
 ## Rule details
 
@@ -16,23 +16,23 @@ Example of **incorrect** code:
 
 ```js
 var numberFormatter = new Intl.NumberFormat('de-DE', {
-  style: 'currency',
-  currency: 'EUR',
+    style: 'currency',
+    currency: 'EUR',
 });
 var dateFormatter = new Intl.DateTimeFormat('fi', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
 });
 
 var formattedNumber = new Intl.NumberFormat('de-DE', {
-  style: 'currency',
-  currency: 'EUR',
+    style: 'currency',
+    currency: 'EUR',
 }).format(number);
 var formattedDate = new Intl.DateTimeFormat('fi', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
 }).format(date);
 ```
 
@@ -42,13 +42,13 @@ Example of **correct** code:
 import { getDateTimeFormat, getNumberFormat } from '@salesforce/i18n-service';
 
 var numberFormatter = getNumberFormat('de-DE', {
-  style: 'currency',
-  currency: 'EUR',
+    style: 'currency',
+    currency: 'EUR',
 });
 var dateFormatter = getDateTimeFormat('fi', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
 });
 
 var formattedNumber = numberFormatter.format(number);

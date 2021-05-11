@@ -14,87 +14,87 @@ const rule = require('../../../lib/rules/prefer-i18n-service');
 const ruleTester = new RuleTester(ESLINT_TEST_CONFIG);
 
 ruleTester.run('prefer-i18n-service', rule, {
-  valid: [
-    {
-      code: `getNumberFormat('de-DE', { style: 'currency', currency: 'EUR' });`,
-    },
-    {
-      code: `getDateTimeFormat('fi', {year: 'numeric', month: 'long', day: 'numeric'});`,
-    },
-    {
-      code: `getIntlOptionsFromCLDR("en-US", "shortDateFormat");`,
-    },
-    {
-      code: `const dateFormatter = getDateTimeFormat("en-US", intlOptions);`,
-    },
-    {
-      code: `numberFormatInstance = new LocalizerImpl.NumberFormat(locale, options);`,
-    },
-    {
-      code: `new Intl.Collator();`,
-    },
-    {
-      code: `new Intl.DisplayNames();`,
-    },
-    {
-      code: `new Intl.ListFormat();`,
-    },
-    {
-      code: `new Intl.Locale();`,
-    },
-    {
-      code: `Intl.PluralRules();`,
-    },
-  ],
-  invalid: [
-    {
-      code: `const fullNameFormatter = new Intl.DateTimeFormat(intlLocales, {
+    valid: [
+        {
+            code: `getNumberFormat('de-DE', { style: 'currency', currency: 'EUR' });`,
+        },
+        {
+            code: `getDateTimeFormat('fi', {year: 'numeric', month: 'long', day: 'numeric'});`,
+        },
+        {
+            code: `getIntlOptionsFromCLDR("en-US", "shortDateFormat");`,
+        },
+        {
+            code: `const dateFormatter = getDateTimeFormat("en-US", intlOptions);`,
+        },
+        {
+            code: `numberFormatInstance = new LocalizerImpl.NumberFormat(locale, options);`,
+        },
+        {
+            code: `new Intl.Collator();`,
+        },
+        {
+            code: `new Intl.DisplayNames();`,
+        },
+        {
+            code: `new Intl.ListFormat();`,
+        },
+        {
+            code: `new Intl.Locale();`,
+        },
+        {
+            code: `Intl.PluralRules();`,
+        },
+    ],
+    invalid: [
+        {
+            code: `const fullNameFormatter = new Intl.DateTimeFormat(intlLocales, {
                     weekday: 'long',
                     timeZone: 'UTC',
                   });`,
-      errors: [
-        {
-          message:
-            'Prefer using "@salesforce/i18n-service" over directly calling "Intl".',
+            errors: [
+                {
+                    message:
+                        'Prefer using "@salesforce/i18n-service" over directly calling "Intl".',
+                },
+            ],
         },
-      ],
-    },
-    {
-      code: `numberFormatInstance = new Intl.NumberFormat(locale, options);`,
-      env: {
-        browser: true,
-      },
-      errors: [
         {
-          message:
-            'Prefer using "@salesforce/i18n-service" over directly calling "Intl".',
+            code: `numberFormatInstance = new Intl.NumberFormat(locale, options);`,
+            env: {
+                browser: true,
+            },
+            errors: [
+                {
+                    message:
+                        'Prefer using "@salesforce/i18n-service" over directly calling "Intl".',
+                },
+            ],
         },
-      ],
-    },
-    {
-      code: `new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' });`,
-      env: {
-        browser: true,
-      },
-      errors: [
         {
-          message:
-            'Prefer using "@salesforce/i18n-service" over directly calling "Intl".',
+            code: `new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' });`,
+            env: {
+                browser: true,
+            },
+            errors: [
+                {
+                    message:
+                        'Prefer using "@salesforce/i18n-service" over directly calling "Intl".',
+                },
+            ],
         },
-      ],
-    },
-    {
-      code: `const rtf = new Intl.RelativeTimeFormat("en", {
+        {
+            code: `const rtf = new Intl.RelativeTimeFormat("en", {
                     localeMatcher: "best fit", // other values: "lookup"
                     numeric: "always", // other values: "auto"
                     style: "long", // other values: "short" or "narrow"
                 });`,
-      errors: [
-        {
-          message:
-            'Prefer using "@salesforce/i18n-service" over directly calling "Intl".',
+            errors: [
+                {
+                    message:
+                        'Prefer using "@salesforce/i18n-service" over directly calling "Intl".',
+                },
+            ],
         },
-      ],
-    },
-  ],
+    ],
 });

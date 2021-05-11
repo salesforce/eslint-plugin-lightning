@@ -7,16 +7,16 @@
 'use strict';
 
 const ESLINT_TEST_CONFIG = {
-  parserOptions: {
-    ecmaVersion: 12,
-    sourceType: 'module',
-  },
+    parserOptions: {
+        ecmaVersion: 12,
+        sourceType: 'module',
+    },
 
-  env: {
-    es6: true,
-  },
+    env: {
+        es6: true,
+    },
 };
 
 module.exports = {
-  ESLINT_TEST_CONFIG,
+    ESLINT_TEST_CONFIG,
 };
