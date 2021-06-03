@@ -37,6 +37,18 @@ ruleTester.run('valid-apex-method-invocation', rule, {
             `,
         },
         {
+            // Invocation with arguments passed as a literal from a nested scope.
+            code: `
+                import findContacts from '@salesforce/apex/ContactController.findContacts';
+
+                class provider {
+                    getData() {
+                        findContacts({ searchKey: 'Ted' });
+                    }
+                }
+            `,
+        },
+        {
             // Invocation on a continuation method with arguments passed as a literal.
             code: `
                 import findContacts from '@salesforce/apexContinuation/ContactController.findContacts';
@@ -88,7 +100,7 @@ ruleTester.run('valid-apex-method-invocation', rule, {
                 import findContacts from '@salesforce/apex/ContactController.findContacts';
 
                 function callApex(args) {
-                findContacts(args);
+                    findContacts(args);
                 }
             `,
         },
@@ -107,6 +119,21 @@ ruleTester.run('valid-apex-method-invocation', rule, {
                 findContacts('Ted');
             `,
         },
+        {
+            // Invocation of an unresolved function
+            code: `
+                findContacts('Ted');
+            `,
+        },
+        {
+            // [#4]: Fix regression related to the usage of Mixin
+            code: `
+                import { LightningElement } from 'lwc';
+                import { NavigationMixin } from 'lightning/navigation';
+                
+                export default class extends NavigationMixin(LightningElement) {}
+            `,
+        },
     ],
     invalid: [
         {
@@ -114,6 +141,23 @@ ruleTester.run('valid-apex-method-invocation', rule, {
             code: `
                 import findContacts from '@salesforce/apex/ContactController.findContacts';
                 findContacts('Ted');
+            `,
+            errors: [
+                {
+                    messageId: 'invalidArgumentType',
+                },
+            ],
+        },
+        {
+            // Invocation with string literal in a nested scope.
+            code: `
+                import findContacts from '@salesforce/apex/ContactController.findContacts';
+
+                class provider {
+                    getData() {
+                        findContacts('Ted');
+                    }
+                }
             `,
             errors: [
                 {
