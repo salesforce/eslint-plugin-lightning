@@ -5,7 +5,7 @@
 ## Installation
 
 ```sh
-$ npm install eslint @lwc/eslint-plugin-lightning --save-dev
+$ npm install eslint @salesforce/eslint-plugin-lightning --save-dev
 ```
 
 ## Usage
