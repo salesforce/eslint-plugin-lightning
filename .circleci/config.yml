@@ -37,7 +37,7 @@ jobs:
                 command: npm install eslint@<<parameters.eslint-version>> --save-dev
 
       - run: npm run format:check
-      - run: npm lint
+      - run: npm run lint
       - run: npm test
 
 workflows:
