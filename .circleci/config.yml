@@ -36,7 +36,7 @@ jobs:
                 name: Override version of eslint@<<parameters.eslint-version>>
                 command: npm install eslint@<<parameters.eslint-version>> --save-dev
 
-      - run: npm format:check
+      - run: npm run format:check
       - run: npm lint
       - run: npm test
 
