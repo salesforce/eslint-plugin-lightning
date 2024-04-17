@@ -29,7 +29,7 @@
     "prettier": "^2.8.1"
   },
   "peerDependencies": {
-    "eslint": "^7 || ^8"
+    "eslint": "^7 || ^8 || 9^"
   },
   "files": [
     "lib/"
