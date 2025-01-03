@@ -10,7 +10,7 @@ $ npm install eslint @salesforce/eslint-plugin-lightning --save-dev
 
 ## Usage
 
-Import this plugin to your ESLint configuration and apply your desired configuration. See [ESLint documentation](http://eslint.org/docs/user-guide/configuring#configuring-plugins) for details.
+Import this plugin to your ESLint configuration file and apply your desired configuration. See [ESLint documentation](http://eslint.org/docs/user-guide/configuring#configuring-plugins) for details.
 
 ```js
 // eslint.config.js
