@@ -7,6 +7,7 @@
 'use strict';
 
 const { RuleTester } = require('eslint');
+const globals = require('globals');
 
 const { ESLINT_TEST_CONFIG } = require('../shared');
 const rule = require('../../../lib/rules/prefer-i18n-service');
@@ -61,8 +62,10 @@ ruleTester.run('prefer-i18n-service', rule, {
         },
         {
             code: `numberFormatInstance = new Intl.NumberFormat(locale, options);`,
-            env: {
-                browser: true,
+            languageOptions: {
+                globals: {
+                    ...globals.browser,
+                },
             },
             errors: [
                 {
@@ -73,8 +76,10 @@ ruleTester.run('prefer-i18n-service', rule, {
         },
         {
             code: `new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' });`,
-            env: {
-                browser: true,
+            languageOptions: {
+                globals: {
+                    ...globals.browser,
+                },
             },
             errors: [
                 {

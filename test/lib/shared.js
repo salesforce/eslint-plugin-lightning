@@ -7,13 +7,11 @@
 'use strict';
 
 const ESLINT_TEST_CONFIG = {
-    parserOptions: {
-        ecmaVersion: 12,
-        sourceType: 'module',
-    },
-
-    env: {
-        es6: true,
+    languageOptions: {
+        parserOptions: {
+            requireConfigFile: false,
+            sourceType: 'module',
+        },
     },
 };
 

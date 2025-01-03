@@ -10,16 +10,23 @@ $ npm install eslint @salesforce/eslint-plugin-lightning --save-dev
 
 ## Usage
 
-Add this plugin to your ESLint configuration and extend your desired configuration. See [ESLint documentation](http://eslint.org/docs/user-guide/configuring#configuring-plugins) for details.
+Import this plugin to your ESLint configuration and apply your desired configuration. See [ESLint documentation](http://eslint.org/docs/user-guide/configuring#configuring-plugins) for details.
 
-```json
-{
-    "plugin": ["@salesforce/eslint-plugin-lightning"],
-    "rules": {
-        "@salesforce/lightning/no-moment": "error",
-        "@salesforce/lightning/prefer-i18n-service": "error"
+```js
+// eslint.config.js
+const pluginLightning = require('@salesforce/eslint-plugin-lightning');
+
+module.exports = [
+    {
+        'plugins': {
+            '@salesforce/lightning':  pluginLightning,
+        }
+        'rules': {
+            '@salesforce/lightning/no-moment': 'error',
+            '@salesforce/lightning/prefer-i18n-service': 'error'
+        }
     }
-}
+]
 ```
 
 ## Rules
