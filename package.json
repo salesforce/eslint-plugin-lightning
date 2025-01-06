@@ -48,5 +48,12 @@
   "mocha": {
     "recursive": true,
     "reporter": "dot"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "volta": {
+    "node": "20.18.1",
+    "yarn": "1.22.22"
   }
 }
